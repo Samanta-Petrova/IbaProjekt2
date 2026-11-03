@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weatherly | Vejr og tøjanbefalinger</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="#" class="logo">weatherly<span>.</span></a>
+
+        <div class="nav-right">
+            <span id="user-status">Gæst</span>
+            <button id="account-toggle" class="btn btn-outline">
+                Log ind
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="account-section" class="account-section hidden">
+
+            <div class="account-card">
+                <h2>Din konto</h2>
+
+                <div id="auth-forms">
+
+                    <div class="auth-tabs">
+                        <button id="show-login" class="active">Log ind</button>
+                        <button id="show-register">Opret bruger</button>
+                    </div>
+
+                    <form id="login-form">
+                        <label for="login-email">E-mail</label>
+                        <input id="login-email" type="email" required>
+
+                        <label for="login-password">Adgangskode</label>
+                        <input id="login-password" type="password" required>
+
+                        <button class="btn btn-primary" type="submit">
+                            Log ind
+                        </button>
+                    </form>
+
+                    <form id="register-form" class="hidden">
+                        <label for="register-username">Brugernavn</label>
+                        <input id="register-username" type="text" required>
+
+                        <label for="register-email">E-mail</label>
+                        <input id="register-email" type="email" required>
+
+                        <label for="register-password">Adgangskode</label>
+                        <input id="register-password" type="password" minlength="6" required>
+
+                        <button class="btn btn-primary" type="submit">
+                            Opret bruger
+                        </button>
+                    </form>
+
+                </div>
+
+                <div id="user-settings" class="hidden">
+
+                    <h3>Dine præferencer</h3>
+
+                    <form id="preferences-form">
+
+                        <label for="age-group">Aldersgruppe</label>
+                        <select id="age-group">
+                            <option value="adult">Voksen</option>
+                            <option value="teen">Teenager</option>
+                            <option value="child">Barn</option>
+                        </select>
+
+                        <label for="clothing-style">Tøjstil</label>
+                        <select id="clothing-style">
+                            <option value="casual">Casual</option>
+                            <option value="sporty">Sporty</option>
+                            <option value="formal">Formel</option>
+                        </select>
+
+                        <label for="warmth">Temperaturpræference</label>
+                        <select id="warmth">
+                            <option value="cold">Jeg har det ofte varmt</option>
+                            <option value="normal">Normal</option>
+                            <option value="warm">Jeg fryser ofte</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary">
+                            Gem præferencer
+                        </button>
+
+                    </form>
+
+                    <button id="logout-button" class="btn btn-outline">
+                        Log ud
+                    </button>
+
+                </div>
+
+                <p id="account-message" class="message"></p>
+            </div>
+
+        </section>
+
+
+        <section class="welcome-section">
+            <p class="eyebrow">DIT PERSONLIGE VEJROVERBLIK</p>
+
+            <h1>Vejret lige nu.</h1>
+
+            <p>Find vejret, og få anbefalinger til hvad du skal tage på.</p>
+        </section>
+
+
+        <section class="search-section">
+
+            <form id="search-form">
+                <input
+                    id="city-input"
+                    type="text"
+                    placeholder="Søg efter en by..."
+                    autocomplete="off"
+                    required
+                >
+
+                <button type="submit" class="btn btn-primary">
+                    Søg
+                </button>
+            </form>
+
+            <button id="location-button" class="btn btn-outline">
+                Brug min placering
+            </button>
+
+            <div id="search-results"></div>
+
+        </section>
+
+
+        <section id="weather-section" class="hidden">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">AKTUELT VEJR</p>
+                    <h2 id="location-name">Aalborg</h2>
+                    <p id="weather-date"></p>
+                </div>
+
+                <button id="favorite-button" class="btn btn-outline">
+                    ☆ Gem lokation
+                </button>
+            </div>
+
+
+            <div class="weather-main card">
+
+                <div class="weather-current">
+                    <div>
+                        <p id="weather-description">Henter vejr...</p>
+                        <div class="temperature">
+                            <span id="temperature">--°</span>
+                            <span id="weather-icon">☀</span>
+                        </div>
+                        <p id="feels-like">Føles som --°</p>
+                    </div>
+                </div>
+
+                <div class="weather-details">
+
+                    <div class="detail-box">
+                        <span>Vind</span>
+                        <strong id="wind">-- km/t</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Luftfugtighed</span>
+                        <strong id="humidity">--%</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Nedbør</span>
+                        <strong id="precipitation">-- mm</strong>
+                    </div>
+
+                    <div class="detail-box">
+                        <span>Føles som</span>
+                        <strong id="feels-detail">--°</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <section class="forecast-section">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">KOMMENDE DAGE</p>
+                        <h2>Vejrudsigt</h2>
+                    </div>
+                </div>
+
+                <div id="forecast-container" class="forecast-grid"></div>
+
+            </section>
+
+
+            <section class="clothing-section">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">PERSONLIG ANBEFALING</p>
+                        <h2>Hvad skal du tage på?</h2>
+                    </div>
+                </div>
+
+                <div class="clothing-card card">
+
+                    <div class="clothing-icon">👕</div>
+
+                    <div class="clothing-content">
+                        <h3 id="clothing-title">Dine tøjanbefalinger</h3>
+
+                        <p id="clothing-description">
+                            Vi finder det bedste tøj til vejret.
+                        </p>
+
+                        <div id="clothing-items" class="clothing-items"></div>
+
+                        <p id="personal-note" class="personal-note"></p>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section id="favorites-section" class="favorites-section hidden">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">GEMTE LOKATIONER</p>
+                        <h2>Dine favoritsteder</h2>
+                    </div>
+                </div>
+
+                <div id="favorites-container" class="favorites-grid"></div>
+
+            </section>
+
+        </section>
+
+        <div id="global-message" class="message"></div>
+
+    </main>
+
+
+    <footer>
+        <p>Weatherly. Vejrdata leveret af Open-Meteo.</p>
+    </footer>
+
+</body>
+</html>
